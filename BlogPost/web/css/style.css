@@ -1,18 +1,22 @@
 @charset "ISO-8859-1";
-
-body{
-	background-color: teal;
+.reg-panel{
+    padding: 5%;
+    float: left;
+    width: 49%;
+    margin-top: 5%;
+    padding-top: 0%;
 }
 
-input{
-	width:200px;
+.log-panel{
+    padding: 5%;
+    float: right;
+    width: 49%;
+    margin-top: 5%;
+    padding-top: 0%;
 }
 
-td{
-	color:white;
-	font-size:15px;
-}
-#subbtn{
-	width: 200px;
-	
+.form-title{
+    padding: 2%;
+    padding-bottom: 3%;
+    text-align: center;
 }
