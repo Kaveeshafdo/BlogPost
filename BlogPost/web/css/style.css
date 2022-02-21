@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+
+body{
+	background-color: teal;
+}
+
+input{
+	width:200px;
+}
+
+td{
+	color:white;
+	font-size:15px;
+}
+#subbtn{
+	width: 200px;
+	
+}
