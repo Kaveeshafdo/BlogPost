@@ -40,6 +40,8 @@
             </div>
         </form>
     </div>
+    <div class="divider">
+    </div>
     <div class="log-panel">
         <h1 class="form-title">Login</h1>
         <form action="" method="post">
