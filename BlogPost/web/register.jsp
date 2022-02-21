@@ -1,26 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet" href="css/style.css">
-<title>BlogPost</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Hello, world!</title>
 </head>
+
 <body>
-<form action="Register" method="post">
-<table>
-    <h1>Register</h1>
-<tr><td id="name" >Name:</td><td><input type="text" name="name"></td></tr>
-<tr><td>Email:</td><td><input type="text" name="reg_email"></td></tr>
-<tr><td>Password:</td><td><input type="password" name="reg_password"></td></tr>
-<tr><td>Confirm Password:</td><td><input type="password" name="repassword"></td></tr>
-<tr><td></td><td><input type="submit" value="submit" name="register" id="subbtn" ></td></tr>
-</table>
-    <h1>Login</h1>
-    <label>Email:</label><input type="text" name="log_email"><br>
-    <label>Password:</label><input type="password" name="log_password"><br>
-    <input type="submit" value="submit" name="register" id="subbtn" >
-</form>
+    <div class="reg-panel">
+        <h1 class="form-title">Register</h1>
+        <form action="Register" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" id="name">
+            </div>
+            <div class="mb-3">
+                <label for="reg_email" class="form-label">Email</label>
+                <input type="email" name="reg_email" class="form-control" id="reg_email">
+            </div>
+            <div class="mb-3">
+                <label for="reg_password" class="form-label">Password</label>
+                <input type="password" name="reg_password" class="form-control" id="reg_password">
+            </div>
+            <div class="mb-3">
+                <label for="repassword" class="form-label">Repeat Password</label>
+                <input type="password" name="repassword" class="form-control" id="repassword">
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Register" name="register" class="btn form-control btn-primary" id="subbtn">
+            </div>
+        </form>
+    </div>
+    <div class="log-panel">
+        <h1 class="form-title">Login</h1>
+        <form action="" method="post">
+        <div class="mb-3">
+            <label for="log_email" class="form-label">Email</label>
+            <input type="email" name="log_email" class="form-control" id="log_email">
+        </div>
+        <div class="mb-3">
+            <label for="log_password" class="form-label">Password</label>
+            <input type="password" name="log_password" class="form-control" id="log_password">
+        </div>
+        <div class="mb-3">
+            <input type="submit" name="register" value="log In" class="btn form-control btn-primary" id="subbtn">
+        </div>
+    </form>
+    </div>
+    
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
 </body>
+
 </html>
