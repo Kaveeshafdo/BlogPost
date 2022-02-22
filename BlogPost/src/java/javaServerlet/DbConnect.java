@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,11 +21,12 @@ import java.util.logging.Logger;
  */
 public class DbConnect {
 
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-    Connection conn = null;
+   //static PreparedStatement pst = null;
+   static Statement st = null;
+   static ResultSet rs = null;
+   static Connection conn = null;
 
-    public Connection connect() {
+    public static Connection connect() {
 
         try {
             String dbURL = "jdbc:jtds:sqlserver://localhost:1433/blog";
@@ -38,26 +40,26 @@ public class DbConnect {
         return conn;
     }
 
-    public void insertDb(String query) {
+    public static void insertDb(String query) {
         if (conn == null) {
             connect();
         }
         try {
-            pst = conn.prepareStatement(query);
-            pst.executeUpdate();
+            st = conn.createStatement();
+            st.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ResultSet getDb(String query) {
+    public static ResultSet getDb(String query) {
         if (conn == null) {
             connect();
         }
 
         try {
-            pst = conn.prepareStatement(query);
-            rs = pst.executeQuery();
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
