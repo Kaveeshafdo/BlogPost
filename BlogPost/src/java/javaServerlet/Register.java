@@ -28,45 +28,25 @@ public class Register extends HttpServlet {
     Connection conn = null;
     PreparedStatement pst;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        DbConnect.connect();
         try (PrintWriter out = response.getWriter()) {
             String name = request.getParameter("name");
             String email = request.getParameter("reg_email");
             String pass = request.getParameter("reg_password");
             String rePass = request.getParameter("repassword");
-
-            if (pass.equals(rePass)) {
-                //if ((!name.equals("")) && (!email.equals("")) && (!pass.equals(""))) {         
-                if (true) {
-                    try {
-                        Member member = new Member(name, email, pass, rePass);
-                        member.setName(name);
-                        member.setEmail(email);
-                        member.setPass(pass);
-                        out.println(member.getName());
-                        out.println(member.getEmail());
-                        out.println(member.getPass());
-                        response.sendRedirect("welcome.jsp");
-                    } catch (Exception e) {
-                        out.println(e.getMessage());
-                    }
-
-                } else {
-                    out.println("Empty Name, Email or Password");
-                }
-            } else {
-                out.println("Invalid Password");
-            }
-
+            String query = "insert into Users(Name,Email,Password) values('"+name+"','"+email+"','"+pass+"')";
+            DbConnect.insertDb(query);
         } catch (Exception ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
