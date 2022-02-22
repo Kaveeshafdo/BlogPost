@@ -24,46 +24,40 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
+
     Connection conn = null;
-   PreparedStatement pst;
-    
+    PreparedStatement pst;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String name1 = request.getParameter("name");
-            String email1 = request.getParameter("reg_email");
-            String pass1 = request.getParameter("reg_password");
+            String name = request.getParameter("name");
+            String email = request.getParameter("reg_email");
+            String pass = request.getParameter("reg_password");
             String rePass = request.getParameter("repassword");
-           
-            if (pass1.equals(rePass)) {
+
+            if (pass.equals(rePass)) {
                 //if ((!name.equals("")) && (!email.equals("")) && (!pass.equals(""))) {         
                 if (true) {
                     try {
-                        
-                    //    Member member = new Member(name,email,pass,rePass);
-//                      Member member = new Member();
-//                      member.setName(name1);
-//                      member.setEmail(email1);
-//                      member.setPass(pass1);
-//                         out.println(member.getName());
-//                          out.println(member.getEmail());
-//                           out.println(member.getPass());
-                           test t1 = new test();
-                           t1.run();
-                        // response.sendRedirect("welcome.jsp");
+                        Member member = new Member(name, email, pass, rePass);
+                        member.setName(name);
+                        member.setEmail(email);
+                        member.setPass(pass);
+                        out.println(member.getName());
+                        out.println(member.getEmail());
+                        out.println(member.getPass());
+                        response.sendRedirect("welcome.jsp");
                     } catch (Exception e) {
                         out.println(e.getMessage());
                     }
-                     
-                     
+
                 } else {
                     out.println("Empty Name, Email or Password");
                 }
-            }
-            else{
-             out.println("Invalid Password");
+            } else {
+                out.println("Invalid Password");
             }
 
         } catch (Exception ex) {
