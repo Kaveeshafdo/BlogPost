@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class DbConnect {
 
-   //static PreparedStatement pst = null;
+   static PreparedStatement pst = null;
    static Statement st = null;
    static ResultSet rs = null;
    static Connection conn = null;
@@ -29,13 +29,16 @@ public class DbConnect {
     public static Connection connect() {
 
         try {
-            String dbURL = "jdbc:jtds:sqlserver://localhost:1433/blog";
+            String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=blog";
             String user = "sa";
             String pass = "123";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(dbURL, user, pass);
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        } catch (ClassNotFoundException ex) {
+           Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
+       }
 
         return conn;
     }
@@ -45,8 +48,8 @@ public class DbConnect {
             connect();
         }
         try {
-            st = conn.createStatement();
-            st.execute(query);
+            pst = conn.prepareStatement(query);
+            pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,8 +61,8 @@ public class DbConnect {
         }
 
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
