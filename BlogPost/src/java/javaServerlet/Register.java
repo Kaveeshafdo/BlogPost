@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Register extends HttpServlet {
 
     Connection conn = null;
-   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,9 +37,12 @@ public class Register extends HttpServlet {
             String email = request.getParameter("reg_email");
             String pass = request.getParameter("reg_password");
             String rePass = request.getParameter("repassword");
-            
-            DbConnect.insertDb("insert into Users(Name,Email,Password) values('"+name+"','"+email+"','"+pass+"')");
-            response.sendRedirect("register.jsp"); 
+
+            DbConnect.insertDb("insert into Users(Name,Email,Password) values('" + name + "','" + email + "','" + pass + "')");
+//            Member member = new Member();
+//            member.setName(name);
+           
+            response.sendRedirect("register.jsp");
             // < jsp:forward page="welcome.jsp" />
         } catch (Exception ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,4 +1,7 @@
+<%@page import="javaServerlet.Member"%>
 <!doctype html>
+
+<% int id = Integer.parseInt(request.getAttribute("id").toString());%>
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -12,7 +15,8 @@
     </head>
     <body>
         <h1>Hello, world!</h1>
-        <%@include file="includes/header.html" %>
+        <%@include file="includes/header.html" %><br><br>
+      
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

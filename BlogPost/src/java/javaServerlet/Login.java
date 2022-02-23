@@ -34,14 +34,16 @@ public class Login extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String log_email = request.getParameter("log_email");
             String log_password = request.getParameter("log_password");
-            
-            ResultSet rs = DbConnect.getDb("SELECT Email,Password FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
+
+            ResultSet rs = DbConnect.getDb("SELECT Id FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
             if (rs.next()) {
-                response.sendRedirect("index.jsp"); 
-            }
-            else{
+                int id = rs.getInt("Id");
+                request.setAttribute("id", id);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                response.sendRedirect("index.jsp");
+            } else {
                 out.println("Login Failed");
-                 
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
