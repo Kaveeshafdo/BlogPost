@@ -1,7 +1,7 @@
 <%@page import="javaServerlet.Member"%>
 <!doctype html>
 
-<% int id = Integer.parseInt(request.getAttribute("id").toString());%>
+ <%-- int id = Integer.parseInt(request.getAttribute("id").toString());--%> 
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -16,8 +16,12 @@
     <body>
         <h1>Hello, world!</h1>
         <%@include file="includes/header.html" %><br><br>
-      
-
+        <h1> Your Id is ${id} </h1>
+        <% Cookie[] ck = request.getCookies(); 
+            if(ck == null){
+                response.sendRedirect("register.jsp");
+            }
+        %>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
