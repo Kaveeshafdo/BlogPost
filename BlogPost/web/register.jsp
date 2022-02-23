@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+       
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,29 +18,7 @@
     </head>
 
     <body>
-        <div class="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container">
-                    <a class="navbar-brand" style="color: #669999; font-weight: 900; font-size: 30px" href="index.jsp">Blog POST</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="index.jsp">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.jsp">Register & Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Log Out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <%@include file="/includes/header.html" %>
         <div class="reg-panel">
             <h1 class="form-title">Register</h1>
             <form action="Register" method="post">
@@ -67,7 +47,7 @@
         </div>
         <div class="log-panel">
             <h1 class="form-title">Login</h1>
-            <form action="" method="post">
+            <form action="Login" method="post">
                 <div class="mb-3">
                     <label for="log_email" class="form-label">Email</label>
                     <input type="email" name="log_email" class="form-control" id="log_email">
