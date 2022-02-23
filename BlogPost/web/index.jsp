@@ -18,7 +18,8 @@
 
         <%@include file="includes/header.html" %><br><br><br><br>
 
-        <% Cookie[] ck = request.getCookies();
+        <% Cookie[] ck = request.getCookies();        
+          Member member;
             boolean b = false;
            
             for (int i = 0; i < ck.length; i++) {
@@ -28,7 +29,12 @@
                 }
             }
             if(b){
-             out.println("<h1>Id</h1>" + id);
+               member = new Member(id);
+             out.println("<div class='user-detail'>"
+                     + "<div class='container'>" 
+                     + "<h3>"+member.getName()+"</h3>"
+                     + "</div></div>"       
+             );
             }else{
             response.sendRedirect("register.jsp");
             }

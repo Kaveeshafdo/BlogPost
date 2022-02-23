@@ -15,6 +15,36 @@
               integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
         <title>Register</title>
+        <script type="text/javascript">
+            function validate(){
+                var name = document.reg_form.name.value;
+                if(name ==""){
+                    alert("Please Enter Name");
+                    document.reg_form.name.focus();
+                    return false;                
+                }
+                 var pass = document.reg_form.reg_password.value;
+                if(pass ==""){
+                    alert("Please Enter Password");
+                    document.reg_form.reg_password.focus();
+                    return false;                
+                }
+                 var email = document.reg_form.reg_email.value;
+                if(email ==""){
+                    alert("Please Enter Email");
+                    document.reg_form.reg_email.focus();
+                    return false;                
+                }
+                var re_pass = document.reg_form.repassword.value;             
+                if(!pass.equals(re_pass)){
+                    alert("Password Mismatch");
+                    document.reg_form.repassword.focus();
+                    return false; 
+                }
+                
+            }
+        </script>
+                
     </head>
 
     <body>
@@ -22,7 +52,7 @@
         <div>
             <div class="reg-panel">
                 <h1 class="form-title">Register</h1>
-                <form action="Register" method="post">
+                <form name="reg_form" action="Register" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="name">
@@ -40,7 +70,7 @@
                         <input type="password" name="repassword" class="form-control" id="repassword">
                     </div>
                     <div class="mb-3">
-                        <input type="submit" value="Register" name="register" class="btn form-control btn-primary"
+                        <input type="submit" value="Register" name="register" onclick="return validate();" class="btn form-control btn-primary"
                                id="subbtn"  data-bs-toggle="modal" data-bs-target="#myModal">
                     </div>
                 </form>
