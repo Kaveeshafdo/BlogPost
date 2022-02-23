@@ -43,8 +43,6 @@ public class Login extends HttpServlet {
                 String name = rs.getString("Name");
                 String email = rs.getString("Email");
                 
-                Member member = new Member(id,name,email);      
-
                 Cookie ck = new Cookie("id", String.valueOf(id));
                 response.addCookie(ck);
                 response.sendRedirect("index.jsp");
