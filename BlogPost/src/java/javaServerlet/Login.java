@@ -37,16 +37,18 @@ public class Login extends HttpServlet {
             String log_email = request.getParameter("log_email");
             String log_password = request.getParameter("log_password");
 
-            ResultSet rs = DbConnect.getDb("SELECT Id FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
+            ResultSet rs = DbConnect.getDb("SELECT Id,Name,Email FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
             if (rs.next()) {
                 int id = rs.getInt("Id");
-                request.setAttribute("id", id);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                String name = rs.getString("Name");
+                String email = rs.getString("Email");
                 
-                Cookie ck = new Cookie("Id",String.valueOf(id));
+                Member member = new Member(id,name,email);      
+
+                Cookie ck = new Cookie("id", String.valueOf(id));
                 response.addCookie(ck);
                 response.sendRedirect("index.jsp");
-                
+
             } else {
                 out.println("Login Failed");
 

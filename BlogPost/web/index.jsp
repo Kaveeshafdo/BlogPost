@@ -1,7 +1,8 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="javaServerlet.Member"%>
 <!doctype html>
 
- <%-- int id = Integer.parseInt(request.getAttribute("id").toString());--%> 
+<% int id = 0;%> 
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -14,12 +15,22 @@
         <title>Blog POST</title>
     </head>
     <body>
-        <h1>Hello, world!</h1>
-        <%@include file="includes/header.html" %><br><br>
-        <h1> Your Id is ${id} </h1>
-        <% Cookie[] ck = request.getCookies(); 
-            if(ck == null){
-                response.sendRedirect("register.jsp");
+
+        <%@include file="includes/header.html" %><br><br><br><br>
+
+        <% Cookie[] ck = request.getCookies();
+            boolean b = false;
+           
+            for (int i = 0; i < ck.length; i++) {
+                if (ck[i].getName().equals("id")) {
+                    b = true;
+                    id = Integer.parseInt(ck[i].getValue().toString());
+                }
+            }
+            if(b){
+             out.println("<h1>Id</h1>" + id);
+            }else{
+            response.sendRedirect("register.jsp");
             }
         %>
         <!-- Optional JavaScript -->

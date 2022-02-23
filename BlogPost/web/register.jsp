@@ -59,7 +59,7 @@
                         <input type="password" name="log_password" class="form-control" id="log_password">
                     </div>
                     <div class="mb-3">
-                        <input type="submit" name="register" value="log In" class="btn form-control btn-primary" id="subbtn">
+                        <input type="submit"  value="log In" class="btn form-control btn-primary" id="subbtn">
                     </div>
                 </form>
             </div>
