@@ -8,7 +8,7 @@ package javaServerlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,28 +22,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kaveesha FDO
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
-public class Register extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     Connection conn = null;
-   
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         DbConnect.connect();
         try (PrintWriter out = response.getWriter()) {
-            String name = request.getParameter("name");
-            String email = request.getParameter("reg_email");
-            String pass = request.getParameter("reg_password");
-            String rePass = request.getParameter("repassword");
+            String log_email = request.getParameter("log_email");
+            String log_password = request.getParameter("log_password");
             
-            DbConnect.insertDb("insert into Users(Name,Email,Password) values('"+name+"','"+email+"','"+pass+"')");
-            response.sendRedirect("register.jsp"); 
-            // < jsp:forward page="welcome.jsp" />
-        } catch (Exception ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            ResultSet rs = DbConnect.getDb("SELECT Email,Password FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
+            if (rs.next()) {
+                response.sendRedirect("index.jsp"); 
+            }
+            else{
+                out.println("Login Failed");
+                 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
