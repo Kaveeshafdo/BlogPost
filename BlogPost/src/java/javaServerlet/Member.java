@@ -1,5 +1,10 @@
 package javaServerlet;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Member {
 
     private String name, email;
@@ -9,11 +14,19 @@ public class Member {
         super();
     }
 
-    public Member(int id,String name,String email) {
+    public Member(int id) {
         super();
-        this.name = name;
-        this.email = email;
-        this.id = id;
+        try {
+            this.id = id;
+            
+            ResultSet rs = DbConnect.getDb("SELECT Name,Email FROM Users WHERE Id='"+this.id+"'");
+            if(rs.next()){
+                this.name = rs.getString("Name");
+                this.email = rs.getString("Email");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
