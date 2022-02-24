@@ -67,21 +67,19 @@
             </div>
         </form>    
         <%
-            ResultSet rs = DbConnect.getDb("SELECT * FROM Post;");
+            ResultSet rs = DbConnect.getDb("SELECT Post.Id, Post.Title,Post.Description,Post.UserId,Users.Name FROM Post INNER JOIN Users ON Post.UserId=Users.Id");
             while (rs.next()) {
                 int pid = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String desc = rs.getString("Description");
                 int uid = rs.getInt("UserId");
+                String name = rs.getString("Name");
+               
                 
             }
            
     
         %>
-
-
-
-
 
         <footer class="text-center text-lg-start bg-light text-muted">
 
