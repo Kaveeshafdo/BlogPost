@@ -75,8 +75,6 @@
                 int uid = rs.getInt("UserId");
                 
             }
-           
-    
         %>
 
 
