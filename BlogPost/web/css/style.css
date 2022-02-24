@@ -49,3 +49,14 @@
 .user-detail h3{
     font-size: 25px;
 }
+
+.width-balancer{
+    margin: auto;
+}
+
+.post-create{
+    padding: 2%;
+    border-radius: 10px;
+    border: 1px rgb(8, 127, 238) solid;
+    margin-top: 50px;
+}
