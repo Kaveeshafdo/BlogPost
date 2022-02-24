@@ -3,6 +3,27 @@
 <!doctype html>
 
 <% int id = 0;%> 
+<% Cookie[] ck = request.getCookies();
+    Member member = null;
+    boolean b = false;
+
+    for (int i = 0; i < ck.length; i++) {
+        if (ck[i].getName().equals("id")) {
+            b = true;
+            id = Integer.parseInt(ck[i].getValue().toString());
+        }
+    }
+    if (b) {
+        member = new Member(id);
+        //out.println("<div class='user-detail'>"
+        //        + "<div class='container'>"
+        //        + "<h3>" + member.getName() + "</h3>"
+        //        + "</div></div>"
+        //);
+    } else {
+        response.sendRedirect("register.jsp");
+    }
+%>
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -15,30 +36,15 @@
         <title>Blog POST</title>
     </head>
     <body>
-
-        <%@include file="includes/header.html" %><br><br><br><br>
-
-        <% Cookie[] ck = request.getCookies();        
-          Member member;
-            boolean b = false;
-           
-            for (int i = 0; i < ck.length; i++) {
-                if (ck[i].getName().equals("id")) {
-                    b = true;
-                    id = Integer.parseInt(ck[i].getValue().toString());
-                }
-            }
-            if(b){
-               member = new Member(id);
-             out.println("<div class='user-detail'>"
-                     + "<div class='container'>" 
-                     + "<h3>"+member.getName()+"</h3>"
-                     + "</div></div>"       
-             );
-            }else{
-            response.sendRedirect("register.jsp");
-            }
-        %>
+        <div>
+            <%@include file="includes/header.html" %><br><br><br><br>
+        </div>
+        <div class="user-detail">
+            <div class="container">
+                <h3>Username : <% if(member != null){out.println(member.getName());}%></h3>
+            </div>
+        </div>
+        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

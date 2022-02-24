@@ -32,11 +32,14 @@
     height: 550px;
     background-color: #FF5733;
 }
+
 .modal{
     margin-top: 25%;    
 }
 
 .user-detail{
+    margin: 0;
+    margin-top: -25px;
     height: 32px;
     color: rgb(0, 0, 0);
     font-size: 20px;
