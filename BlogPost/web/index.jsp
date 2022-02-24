@@ -62,6 +62,20 @@
             </div>
         </div>
             
+        <footer class="text-center text-lg-start bg-light text-muted">
+
+            <section
+                class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom" >
+
+            </section>
+
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2022 Copyright:
+                <a class="text-reset fw-bold" href="index.jsp">BlogPost</a>
+            </div>
+
+        </footer>
+            
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
