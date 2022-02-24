@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="javaServerlet.DbConnect"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="javaServerlet.Member"%>
 <!doctype html>
@@ -32,7 +34,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
+
         <link rel="stylesheet" href="css/style.css">
         <title>Blog POST</title>
     </head>
@@ -47,21 +49,40 @@
                     }%></h3>
             </div>
         </div>
-        <div class="width-balancer col-xl-8 col-lg-10 col-md-10 col-sm-12">
-            <div class="post-create ">
-                <div class="mb-3 col-12">
-                    <label for="exampleFormControlInput1" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+        <form action="CreatePost" method="post">
+            <input type="hidden" id="custId" name="userId" value=<%=id%> >
+            <div class="width-balancer col-xl-8 col-lg-10 col-md-10 col-sm-12">
+                <div class="post-create ">
+                    <div class="mb-3 col-12">
+                        <label for="exampleFormControlInput1" class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+                    </div>
+                    <div class="mb-3 col-12">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
+                                  placeholder="Type something you want."></textarea>
+                    </div>
+                    <input type="submit" value="Publish" class="btn btn-primary">
                 </div>
-                <div class="mb-3 col-12">
-                    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
-                              placeholder="Type something you want."></textarea>
-                </div>
-                <button type="button" class="btn btn-primary">Publish</button>
             </div>
-        </div>
-            
+        </form>    
+        <%
+            ResultSet rs = DbConnect.getDb("SELECT * FROM Post;");
+            while (rs.next()) {
+                int pid = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String desc = rs.getString("Description");
+                int uid = rs.getInt("UserId");
+                
+            }
+           
+    
+        %>
+
+
+
+
+
         <footer class="text-center text-lg-start bg-light text-muted">
 
             <section
@@ -75,7 +96,7 @@
             </div>
 
         </footer>
-            
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
