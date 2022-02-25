@@ -7,6 +7,10 @@ package javaServerlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,14 +29,24 @@ public class CreatePost extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           DbConnect.connect();
-           
-             String title = request.getParameter("title").toString();
+          String title = request.getParameter("title").toString();
              String description = request.getParameter("description").toString();
              int userId = Integer.parseInt(request.getParameter("userId").toString());
+          
+            try {
+                PreparedStatement ps = DbConnect.connect().prepareStatement("insert into Post(Title,Description,UserId) values(?,?,?)");
+                ps.setString(1, title);
+                ps.setString(2, description);
+                ps.setInt(3, userId);
+                ps.executeQuery();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(CreatePost.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    
+            
              
-             DbConnect.insertDb("insert into Post(Title,Description,UserId) values('" + title + "','" + description + "','" +userId+ "')");
-             response.sendRedirect("inside.jsp");
+             response.sendRedirect("index.jsp");
         }
     }
 

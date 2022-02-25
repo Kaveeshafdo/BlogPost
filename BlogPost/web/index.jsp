@@ -64,20 +64,34 @@
                     </div>
                     <input type="submit" value="Publish" class="btn btn-primary">
                 </div>
+                <a href="inside.jsp">See more</a>
+                <%
+                    ResultSet rs = DbConnect.getDb("SELECT Post.Id, Post.Title, Post.Description, Post.UserId, Users.Name FROM Post INNER JOIN Users ON Post.UserId=Users.Id Order by Id DESC");
+                    while (rs.next()) {
+                        int pid = rs.getInt("Id");
+                        String title = rs.getString("Title");
+                        String desc = rs.getString("Description");
+                        if(desc.length() > 80){
+                            desc = desc.substring(0, 80);
+                        }
+                        int uid = rs.getInt("UserId");
+                        String name = rs.getString("Name");
+                        // out.println("<table><tr><td>"+ pid+"</td><td>"+ name+"</td><td>"+ title+"</td><td>"+ desc+"</td><td>"+ uid+"</td></tr></table>");
+                        out.println("<div class='post'>"
+                                + "<div class='modal-header post-header'> "
+                                + "<h5 class='modal-title publisher'>" + name + "</h5>"
+                                + "</div>"
+                                + "<div class='mb-3 col-12'>"
+                                + "<label for='exampleFormControlInput1' class='form-label'>" + title + "</label>"
+                                + "<p class='post-description'>" + desc +" ...."+ "</p>"+"<>"
+                                + "</div>"
+                                + "</div>");
+
+                    }
+                %>
             </div>
         </form>    
-        <%
-            ResultSet rs = DbConnect.getDb("SELECT Post.Id, Post.Title,Post.Description,Post.UserId,Users.Name FROM Post INNER JOIN Users ON Post.UserId=Users.Id");
-            while (rs.next()) {
-                int pid = rs.getInt("Id");
-                String title = rs.getString("Title");
-                String desc = rs.getString("Description");
-                int uid = rs.getInt("UserId");
-                String name = rs.getString("Name");
-               
-                
-            }
-        %>
+
 
         <footer class="text-center text-lg-start bg-light text-muted">
 
