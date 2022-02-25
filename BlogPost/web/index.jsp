@@ -6,7 +6,7 @@
 
 <% int id = 0;%> 
 <% Cookie[] ck = request.getCookies();
-    Member member = null;
+      Member member = null;
     boolean b = false;
 
     for (int i = 0; i < ck.length; i++) {
@@ -49,9 +49,10 @@
                     }%></h3>
             </div>
         </div>
-        <form action="CreatePost" method="post">
-            <input type="hidden" id="custId" name="userId" value=<%=id%> >
-            <div class="width-balancer col-xl-8 col-lg-10 col-md-10 col-sm-12">
+
+        <div class="width-balancer col-xl-8 col-lg-10 col-md-10 col-sm-12">
+            <form action="CreatePost" method="post">
+                <input type="hidden" id="custId" name="userId" value=<%=id%> >
                 <div class="post-create ">
                     <div class="mb-3 col-12">
                         <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -64,34 +65,41 @@
                     </div>
                     <input type="submit" value="Publish" class="btn btn-primary">
                 </div>
-                <a href="inside.jsp">See more</a>
-                <%
-                    ResultSet rs = DbConnect.getDb("SELECT Post.Id, Post.Title, Post.Description, Post.UserId, Users.Name FROM Post INNER JOIN Users ON Post.UserId=Users.Id Order by Id DESC");
-                    while (rs.next()) {
-                        int pid = rs.getInt("Id");
-                        String title = rs.getString("Title");
-                        String desc = rs.getString("Description");
-                        if(desc.length() > 80){
-                            desc = desc.substring(0, 80);
-                        }
-                        int uid = rs.getInt("UserId");
-                        String name = rs.getString("Name");
-                        // out.println("<table><tr><td>"+ pid+"</td><td>"+ name+"</td><td>"+ title+"</td><td>"+ desc+"</td><td>"+ uid+"</td></tr></table>");
-                        out.println("<div class='post'>"
-                                + "<div class='modal-header post-header'> "
-                                + "<h5 class='publisher'>" + name + "</h5>"
-                                + "</div>"
-                                + "<div class='mb-3 col-12'>"
-                                + "<label for='exampleFormControlInput1' class='form-label'>" + title + "</label>"
-                                + "<p class='post-description'>" + desc +" ...."+ "</p>"+"<>"
-                                + "</div>"
-                                + "</div>");
+            </form>   
 
-                    }
-                %>
-            </div>
-        </form>    
+        <%
+            ResultSet rs = DbConnect.getDb("SELECT Post.Id, Post.Title, Post.Description, Post.UserId, Users.Name FROM Post INNER JOIN Users ON Post.UserId=Users.Id Order by Id DESC");
+            while (rs.next()) {
+                int pid = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String desc = rs.getString("Description");
+                String descshort = null;
+                if (desc.length() > 80) {
+                 descshort = desc.substring(0, 80);
+                }
+                int uid = rs.getInt("UserId");
+                String name = rs.getString("Name");
+                // out.println("<table><tr><td>"+ pid+"</td><td>"+ name+"</td><td>"+ title+"</td><td>"+ desc+"</td><td>"+ uid+"</td></tr></table>");
+                out.println("<form action='ViewPost' method='get'>"
+                        + "<div class='post'>"
+                        + "<div class='modal-header post-header'> "
+                        + "<h5 class='publisher'>" + name + "</h5>"
+                        + "</div>"
+                        + "<div class='mb-3 col-12'>"
+                        + "<label for='exampleFormControlInput1' class='form-label'>" + title + "</label>"
+                        + "<p class='post-description'>" + descshort + " ...." + "</p>"
+                        + "<input type='submit' class='seeBtn' value='see more'>"
+                        + "<input type='hidden' name='postId' value='" + pid + "'>"
+                        + "<input type='hidden' name='userId' value='" + id + "'>" 
+                        + "<input type='hidden' name='title' value='" + title + "'>"
+                        + "<input type='hidden' name='description' value='" + desc + "'>" 
+                        + "</div>"
+                        + "</div>"
+                        + "</form>");
 
+            }
+        %>
+        </div>
 
         <footer class="text-center text-lg-start bg-light text-muted">
 

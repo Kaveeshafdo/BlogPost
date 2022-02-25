@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% int pid = Integer.parseInt(request.getParameter("postId").toString()); %>
+<% int uid = Integer.parseInt(request.getParameter("userId").toString()); %>
+<% String title = request.getParameter("title").toString(); %>
+<% String desc = request.getParameter("description").toString(); %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +18,13 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-         <%@include file="includes/header.html" %><br><br><br><br>
+        <div>
+             <%@include file="includes/header.html" %>
+        </div>
+    
+          <div class="user-detail">
+            
+        </div>
          
          <div class="container mt-5">
             <div class="row">
@@ -22,19 +34,17 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">Welcome to Blog POST!</h1>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on January 1, 2021</div>                        
-                          
+                            <h1 class="fw-bolder mb-1"><%=title%></h1>
+                            <!-- Post meta content-->   
                         </header>
                         <!-- Preview image figure-->
                         
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>                                          
+                            <p class="fs-5 mb-4"><%=desc%></p>                                          
 
-                            <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                            <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
+                            <p class="fs-5 mb-4"></p>
+                            <p class="fs-5 mb-4"></p>
                         </section>
                     </article>
                     <!-- Comments section-->

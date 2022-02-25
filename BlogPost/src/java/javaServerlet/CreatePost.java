@@ -38,7 +38,7 @@ public class CreatePost extends HttpServlet {
                 ps.setString(2, description);
                 ps.setInt(3, userId);
                 ps.executeUpdate();
-
+                
             } catch (SQLException ex) {
                 Logger.getLogger(CreatePost.class.getName()).log(Level.SEVERE, null, ex);
             }
