@@ -79,7 +79,7 @@
                         // out.println("<table><tr><td>"+ pid+"</td><td>"+ name+"</td><td>"+ title+"</td><td>"+ desc+"</td><td>"+ uid+"</td></tr></table>");
                         out.println("<div class='post'>"
                                 + "<div class='modal-header post-header'> "
-                                + "<h5 class='modal-title publisher'>" + name + "</h5>"
+                                + "<h5 class='publisher'>" + name + "</h5>"
                                 + "</div>"
                                 + "<div class='mb-3 col-12'>"
                                 + "<label for='exampleFormControlInput1' class='form-label'>" + title + "</label>"

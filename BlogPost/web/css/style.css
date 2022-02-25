@@ -69,14 +69,15 @@
 }
 
 .post-header {
-    height: 30px;
-    margin: none;
-    padding: none;
+    height: 50px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .post-header .publisher {
-    margin: none;
-    padding: none;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 15px;
     text-decoration: none;
     font-size: x-large;
 }
