@@ -60,3 +60,23 @@
     border: 1px rgb(8, 127, 238) solid;
     margin-top: 30px;
 }
+
+.post {
+    margin-top: 25px;
+    padding: 2%;
+    border-radius: 10px;
+    border: 1px rgb(8, 127, 238) solid;
+}
+
+.post-header {
+    height: 30px;
+    margin: none;
+    padding: none;
+}
+
+.post-header .publisher {
+    margin: none;
+    padding: none;
+    text-decoration: none;
+    font-size: x-large;
+}
