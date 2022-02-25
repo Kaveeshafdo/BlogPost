@@ -18,6 +18,7 @@
     if (b) {
         member = new Member(id);
     
+        
     } else {
         response.sendRedirect("register.jsp");
     }
