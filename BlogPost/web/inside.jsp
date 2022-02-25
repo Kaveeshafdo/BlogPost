@@ -19,11 +19,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div>
             <%@include file="includes/header.html" %>
-        </div>
+        </div><br><br><br><br>
         <div class="user-detail">
             <div class="container">
                 <h3>Username : <% if (member != null) {
