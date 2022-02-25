@@ -24,38 +24,33 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CreatePost", urlPatterns = {"/CreatePost"})
 public class CreatePost extends HttpServlet {
 
-  
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-          String title = request.getParameter("title").toString();
-             String description = request.getParameter("description").toString();
-             int userId = Integer.parseInt(request.getParameter("userId").toString());
-          
+            String title = request.getParameter("title").toString();
+            String description = request.getParameter("description").toString();
+            int userId = Integer.parseInt(request.getParameter("userId").toString());
+
             try {
                 PreparedStatement ps = DbConnect.connect().prepareStatement("insert into Post(Title,Description,UserId) values(?,?,?)");
                 ps.setString(1, title);
                 ps.setString(2, description);
                 ps.setInt(3, userId);
                 ps.executeQuery();
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(CreatePost.class.getName()).log(Level.SEVERE, null, ex);
             }
-    
-            
-             
-             response.sendRedirect("index.jsp");
+
+            response.sendRedirect("index.jsp");
         }
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
-
 
 }
