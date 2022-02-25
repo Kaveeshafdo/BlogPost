@@ -34,10 +34,8 @@ public class ViewPost extends HttpServlet {
             request.setAttribute("title", title);
             request.setAttribute("description", desc);
             RequestDispatcher rd = request.getRequestDispatcher("inside.jsp");
-            rd.forward(request, response);
-            
+            rd.forward(request, response);          
             response.sendRedirect("inside.jsp");
-             
         }
     }
 
