@@ -4,12 +4,14 @@
     Author     : Kaveesha FDO
 --%>
 
+<%@page import="javaServerlet.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<% int pid = Integer.parseInt(request.getParameter("postId").toString()); %>
-<% int uid = Integer.parseInt(request.getParameter("userId").toString()); %>
-<% String title = request.getParameter("title").toString(); %>
-<% String desc = request.getParameter("description").toString(); %>
+<% Member member = new Member(); 
+ int pid = Integer.parseInt(request.getParameter("postId").toString()); 
+ int uid = Integer.parseInt(request.getParameter("userId").toString()); 
+ String title = request.getParameter("title").toString(); 
+ String desc = request.getParameter("description").toString(); %>
 
 
 <!DOCTYPE html>
@@ -20,14 +22,20 @@
     </head>
     <body>
         <div>
-             <%@include file="includes/header.html" %>
+            <%@include file="includes/header.html" %>
         </div>
-    
-          <div class="user-detail">
-            
+        <div class="user-detail">
+            <div class="container">
+                <h3>Username : <% if (member != null) {
+                        out.println(member.getName());
+                    }%></h3>
+            </div>
         </div>
-         
-         <div class="container mt-5">
+        <div class="user-detail">
+
+        </div>
+
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Post content-->
@@ -39,7 +47,7 @@
                             <!-- Post meta content-->   
                         </header>
                         <!-- Preview image figure-->
-                        
+
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4"><%=desc%></p>                                          
@@ -92,7 +100,7 @@
                     </section>
                 </div>
                 <!-- Side widgets-->
-                
+
             </div>
         </div>
     </body>
