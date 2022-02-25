@@ -58,9 +58,17 @@
                         <!-- Comments section-->
                         <section class="mb-5">
                             <div class="card bg-light">
-                                <div class="card-body">
+                                <div class="card-body comment-area">
                                     <!-- Comment form-->
-                                    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                    <form class="mb-4" action="CreateComment" method="post">
+                                        <input type="hidden" name="postId" value="<%=pid%>">
+                                        <input type="hidden" name="userId" value="<%=uid%>">
+                                        <textarea class="form-control comment-box" rows="4" placeholder="Join the discussion and leave a comment!" name="comment"></textarea>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <input type="submit" class="btn btn-outline-success comment-button" value="Comment">
+                                        </div>
+                                    </form>
+
                                     <!-- Comment with nested comments-->
                                     <div class="d-flex mb-4">
                                         <!-- Parent comment-->

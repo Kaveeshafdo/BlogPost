@@ -81,3 +81,17 @@
     text-decoration: none;
     font-size: x-large;
 }
+
+.comment-button{
+    margin-top: 8px;
+    font-size: 20px; 
+    padding: 4px 16px;
+}
+
+.comment-box{
+    border: 1px solid green;
+}
+
+.comment-area{
+    background-color: #f4f9f4;
+}
