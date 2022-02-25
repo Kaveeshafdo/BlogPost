@@ -73,6 +73,8 @@
                 String descshort = null;
                 if (desc.length() > 80) {
                  descshort = desc.substring(0, 80);
+                } else {
+                    descshort = desc;
                 }
                 int uid = rs.getInt("UserId");
                 String name = rs.getString("Name");
