@@ -17,11 +17,7 @@
     }
     if (b) {
         member = new Member(id);
-        //out.println("<div class='user-detail'>"
-        //        + "<div class='container'>"
-        //        + "<h3>" + member.getName() + "</h3>"
-        //        + "</div></div>"
-        //);
+    
     } else {
         response.sendRedirect("register.jsp");
     }
