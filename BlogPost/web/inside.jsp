@@ -4,14 +4,34 @@
     Author     : Kaveesha FDO
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="javaServerlet.DbConnect"%>
 <%@page import="javaServerlet.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <% Member member = new Member();
     int pid = Integer.parseInt(request.getParameter("postId").toString());
     int uid = Integer.parseInt(request.getParameter("userId").toString());
-    String title = request.getParameter("title").toString();
-    String desc = request.getParameter("description").toString(); %>
+    String title = null;
+    String desc = null;
+    int publisherID = 0;
+    try {
+        ResultSet rs = DbConnect.getDb("SELECT Name FROM Users WHERE Id='" + uid + "'");
+        if (rs.next()) {
+            String name = rs.getString("Name");
+            member.setName(name);
+        }
+        ResultSet postData = DbConnect.getDb("SELECT * FROM Post WHERE Id='" + pid + "'");
+        if (postData.next()) {
+            title = postData.getString("Title");
+            desc = postData.getString("Description");
+            publisherID = postData.getInt("UserId");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -20,8 +40,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css">
+
     </head>
-    <body>
+    <body>         
         <div>
             <%@include file="includes/header.html" %>
         </div><br><br><br><br>
@@ -63,53 +84,50 @@
                                     <form class="mb-4" action="CreateComment" method="post">
                                         <input type="hidden" name="postId" value="<%=pid%>">
                                         <input type="hidden" name="userId" value="<%=uid%>">
-                                        <textarea class="form-control comment-box" rows="4" placeholder="Join the discussion and leave a comment!" name="comment"></textarea>
+                                        <textarea class="form-control comment-box" id='commentBox' rows="4" placeholder="Join the discussion and leave a comment!" name="comment"></textarea>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                             <input type="submit" class="btn btn-outline-success comment-button" value="Comment">
                                         </div>
                                     </form>
 
-                                    <!-- Comment with nested comments-->
-                                    <div class="d-flex mb-4">
-                                        <!-- Parent comment-->
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                            <!-- Child comment 1-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                                </div>
-                                            </div>
-                                            <!-- Child comment 2-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    When you put money directly to a problem, it makes a good headline.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single comment-->
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </section>
+
+                        <%
+                            String query = "SELECT [blog].[dbo].[Comment].id, [blog].[dbo].[Comment].UserId ,[Content] ,[UserId] ,[PostId], [Name]"
+                                    + " FROM [blog].[dbo].[Comment] inner join [blog].[dbo].[Users] on [blog].[dbo].[Comment].UserId=[blog].[dbo].[Users].Id where PostId=" + pid;
+                            ResultSet rs = DbConnect.getDb(query);
+                            while (rs.next()) {
+                                out.print("<div>" + rs.getString("Name") + " " + rs.getString("Content") + "</div>");
+                                out.println("<form class='mb-4' action='CreateReply' method='post'> "
+                                        + "<input type='hidden' name='commentId' value='"+rs.getInt("id")+"'> "
+                                        + "<input type='hidden' name='postId' value='"+pid+"'> "
+                                        + "<input type='hidden' name='userId' value='" + uid + "'> "
+                                        + " <textarea class='form-control comment-box' id='commentBox' rows='1' placeholder='Join the discussion and leave a comment!' name='reply'></textarea>"
+                                        + "<div class='d-grid gap-2 d-md-flex justify-content-md-end'>"
+                                        + "<input type='submit' class='btn btn-outline-success comment-button' value='Reply'>"
+                                        + "</div>"
+                                        + "</form>");
+                                String replyquery = "SELECT [blog].[dbo].[Reply].[Id] ,[Content] ,[CommentId] ,[UserId], Name"
+                                        + " FROM [blog].[dbo].[Reply] inner join [blog].[dbo].[Users] on [blog].[dbo].[Reply].UserId=[blog].[dbo].[Users].Id WHERE CommentId= " + rs.getInt("id");
+                                ResultSet replyrs = DbConnect.getDb(replyquery);
+                                while (replyrs.next()) {
+                                    out.print("<div>" + replyrs.getString("Name") + " " + replyrs.getString("Content") + "</div>");
+                                }
+
+                            }
+                        %>
                     </div>
                     <!-- Side widgets-->
 
                 </div>
             </div>
         </div>
+        <script>
+            function setForReply() {
+                document.getElementById("commentBox").focus();
+            }
+        </script>
     </body>
 </html>
