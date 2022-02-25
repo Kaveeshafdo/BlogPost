@@ -4,6 +4,8 @@
     Author     : Kaveesha FDO
 --%>
 
+<%@page import="javaServerlet.DbConnect"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="javaServerlet.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -11,7 +13,15 @@
     int pid = Integer.parseInt(request.getParameter("postId").toString());
     int uid = Integer.parseInt(request.getParameter("userId").toString());
     String title = request.getParameter("title").toString();
-    String desc = request.getParameter("description").toString(); %>
+    String desc = request.getParameter("description").toString();
+
+    ResultSet rs = DbConnect.getDb("SELECT Name FROM Users WHERE Id='" + uid + "'");
+    if (rs.next()) {
+        String name = rs.getString("Name");
+        member.setName(name);
+
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -111,5 +121,18 @@
                 </div>
             </div>
         </div>
+        <footer class="text-center text-lg-start bg-light text-muted">
+
+            <section
+                class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom" >
+
+            </section>
+
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2022 Copyright:
+                <a class="text-reset fw-bold" href="index.jsp">BlogPost</a>
+            </div>
+
+        </footer>
     </body>
 </html>
