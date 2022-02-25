@@ -42,7 +42,6 @@ public class CreatePost extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(CreatePost.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             response.sendRedirect("index.jsp");
         }
     }
