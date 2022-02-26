@@ -94,7 +94,7 @@
                                                 + " FROM [blog].[dbo].[Comment] inner join [blog].[dbo].[Users] on [blog].[dbo].[Comment].UserId=[blog].[dbo].[Users].Id where PostId=" + pid;
                                         ResultSet rs = DbConnect.getDb(query);
                                         while (rs.next()) {
-                                            out.print("<div class='commenter'>" + rs.getString("Name") + "</div>"
+                                            out.print("<div class='comment-visible'><div class='commenter'>" + rs.getString("Name") + "</div>"
                                                     + "<hr class='comment-div-hr'> "
                                                     + "<div class='comment-content'>" + rs.getString("Content")
                                                     + "</div>");
@@ -118,7 +118,7 @@
                                                         + "<div class='comment-content'>" + replyrs.getString("Content")
                                                         + "</div></div>");
                                             }
-
+                                            out.print("</div>");
                                         }
                                     %>
                                 </div>
