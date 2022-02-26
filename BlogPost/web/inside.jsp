@@ -99,15 +99,15 @@
                                                     + "<div class='comment-content'>" + rs.getString("Content")
                                                     + "</div>");
 
-                                            out.println("<form class='mb-4' action='CreateReply' method='post'> "
+                                            out.println("<form class='mb-4 reply-form' action='CreateReply' method='post'> "
                                                     + "<input type='hidden' name='commentId' value='" + rs.getInt("id") + "'> "
                                                     + "<input type='hidden' name='postId' value='" + pid + "'> "
                                                     + "<input type='hidden' name='userId' value='" + uid + "'> <hr class='comment-div-hr'>"
                                                     + "<div class='reply-box'>"
-                                                    + " <textarea class='form-control comment-box' id='commentBox' rows='1' placeholder='Join the discussion and leave a comment!' name='reply'></textarea>"
+                                                    + "<textarea class='form-control comment-box' id='commentBox' rows='1' placeholder='Join the discussion and leave a comment!' name='reply'></textarea>"
                                                     + "<div class='d-grid gap-2 d-md-flex justify-content-md-end'>"
                                                     + "<input type='submit' class='btn btn-outline-success comment-button' value='Reply'>"
-                                                    + "</div></div>"
+                                                    + "</div></div><hr class='comment-div-hr'>"
                                                     + "</form>");
                                             String replyquery = "SELECT [blog].[dbo].[Reply].[Id] ,[Content] ,[CommentId] ,[UserId], Name"
                                                     + " FROM [blog].[dbo].[Reply] inner join [blog].[dbo].[Users] on [blog].[dbo].[Reply].UserId=[blog].[dbo].[Users].Id WHERE CommentId= " + rs.getInt("id");
