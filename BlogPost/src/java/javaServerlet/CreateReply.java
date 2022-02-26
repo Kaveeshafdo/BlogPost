@@ -6,6 +6,7 @@
 package javaServerlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,26 +20,28 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Jamit
+ * @author Kaveesha FDO
  */
-@WebServlet(name = "CreateComment", urlPatterns = {"/CreateComment"})
-public class CreateComment extends HttpServlet {
+@WebServlet(name = "CreateReply", urlPatterns = {"/CreateReply"})
+public class CreateReply extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
         try {
             
-            int uid = Integer.parseInt(req.getParameter("userId").toString());
-            int pid = Integer.parseInt(req.getParameter("postId").toString());
-            String comment = req.getParameter("comment").toString();
-            String query = "insert into comment(Content,UserId,PostId) values (?,?,?)";
+            int commentId = Integer.parseInt(req.getParameter("commentId").toString());
+            int userId = Integer.parseInt(req.getParameter("userId").toString());  
+            int postId = Integer.parseInt(req.getParameter("postId").toString());       
+            String replyContent = req.getParameter("reply").toString();
+            String query = "insert into Reply(Content,CommentId,UserId) values (?,?,?)";
             PreparedStatement ps  = DbConnect.connect().prepareStatement(query);
-            ps.setString(1, comment);
-            ps.setInt(2, uid);
-            ps.setInt(3, pid);
+            ps.setString(1, replyContent);
+            ps.setInt(2, commentId);
+            ps.setInt(3, userId);
             ps.executeUpdate();
-            req.setAttribute("postId", pid);
-            req.setAttribute("userId", uid);
+            req.setAttribute("postId", postId);
+            req.setAttribute("userId", userId);
             RequestDispatcher rd = req.getRequestDispatcher("inside.jsp");
             rd.forward(req, resp);
             resp.sendRedirect("inside.jsp");
@@ -47,10 +50,4 @@ public class CreateComment extends HttpServlet {
         }
         
     }
-     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
 }
