@@ -16,35 +16,35 @@
         <link rel="stylesheet" href="css/style.css">
         <title>Register</title>
         <script type="text/javascript">
-            function validate(){
+            function validate() {
                 var name = document.reg_form.name.value;
-                if(name ==""){
+                if (name == "") {
                     alert("Please Enter Name");
                     document.reg_form.name.focus();
-                    return false;                
+                    return false;
                 }
-                 var pass = document.reg_form.reg_password.value;
-                if(pass ==""){
+                var pass = document.reg_form.reg_password.value;
+                if (pass == "") {
                     alert("Please Enter Password");
                     document.reg_form.reg_password.focus();
-                    return false;                
+                    return false;
                 }
-                 var email = document.reg_form.reg_email.value;
-                if(email ==""){
+                var email = document.reg_form.reg_email.value;
+                if (email == "") {
                     alert("Please Enter Email");
                     document.reg_form.reg_email.focus();
-                    return false;                
+                    return false;
                 }
-                var re_pass = document.reg_form.repassword.value;             
-                if(!pass.equals(re_pass)){
+                var re_pass = document.reg_form.repassword.value;
+                if (pass !== re_pass) {
                     alert("Password Mismatch");
                     document.reg_form.repassword.focus();
-                    return false; 
+                    return false;
                 }
-                
+
             }
         </script>
-                
+
     </head>
 
     <body>
@@ -94,23 +94,7 @@
                 </form>
             </div>
         </div>
-        <div class="modal-example">
-            <div class="container mt-5">
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Registration Completed</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Register Process Successfully Completed. Login to your account Manually
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Optional JavaScript; choose one of the two! -->
 
@@ -127,3 +111,21 @@
     </body>
 
 </html>
+<%
+    boolean b;
+    if (request.getAttribute("isInserted") != null) {
+        b = Boolean.parseBoolean(request.getAttribute("isInserted").toString());
+        if (b) {
+            out.println("<script> alert('Registered Completed'); </script>");
+        } else {
+            out.println("<script> alert('Registation Failed'); </script>");
+        }
+    }
+    boolean c;
+    if (request.getAttribute("isLoged") != null) {
+        c = Boolean.parseBoolean(request.getAttribute("isLoged").toString());
+        if (!c) {
+            out.println("<script> alert('Logging Failed! ,  Incorrect Email or Password'); </script>");
+        }
+    }
+%>
