@@ -43,16 +43,19 @@ public class DbConnect {
         return conn;
     }
 
-    public static void insertDb(String query) {
+    public static boolean insertDb(String query) {
         if (conn == null) {
             connect();
         }
         try {
             pst = conn.prepareStatement(query);
             pst.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
         }
+         
     }
 
     public static ResultSet getDb(String query) {

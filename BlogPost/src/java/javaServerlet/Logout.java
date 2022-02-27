@@ -28,17 +28,13 @@ public class Logout extends HttpServlet {
 
         boolean b = false;
         for (int i = 0; i < ck.length; i++) {
-            if (ck[i].getName().equals("id")) {
-                b = true;
-
+            if (ck[i].getName().equals("id")) {              
+                 ck[i].setMaxAge(0);
+            response.addCookie(ck[i]);
             }
 
         }
-        if (b) {
-            ck[0].setMaxAge(0);
-            response.addCookie(ck[0]);
-        }
-
+        
         response.sendRedirect("index.jsp");
     }
 

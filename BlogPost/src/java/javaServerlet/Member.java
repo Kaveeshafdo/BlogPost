@@ -18,9 +18,9 @@ public class Member {
         super();
         try {
             this.id = id;
-            
-            ResultSet rs = DbConnect.getDb("SELECT Name,Email FROM Users WHERE Id='"+this.id+"'");
-            if(rs.next()){
+
+            ResultSet rs = DbConnect.getDb("SELECT Name,Email FROM Users WHERE Id='" + this.id + "'");
+            if (rs.next()) {
                 this.name = rs.getString("Name");
                 this.email = rs.getString("Email");
             }

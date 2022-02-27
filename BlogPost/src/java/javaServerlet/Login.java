@@ -12,12 +12,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,9 +38,10 @@ public class Login extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String log_email = request.getParameter("log_email");
             String log_password = request.getParameter("log_password");
-
+            
             ResultSet rs = DbConnect.getDb("SELECT Id,Name,Email FROM Users WHERE Email='" + log_email + "' AND Password='" + log_password + "'");
             if (rs.next()) {
+                  
                 int id = rs.getInt("Id");
                 String name = rs.getString("Name");
                 String email = rs.getString("Email");
@@ -47,9 +50,12 @@ public class Login extends HttpServlet {
                 response.addCookie(ck);
                 response.sendRedirect("index.jsp");
 
-            } else {
-                out.println("Login Failed");
-
+            } else{
+                boolean b = false;
+            request.setAttribute("isLoged",b );
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.forward(request, response);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

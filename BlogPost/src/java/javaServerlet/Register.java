@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,9 +39,13 @@ public class Register extends HttpServlet {
             String pass = request.getParameter("reg_password");
             String rePass = request.getParameter("repassword");
 
-            DbConnect.insertDb("insert into Users(Name,Email,Password) values('" + name + "','" + email + "','" + pass + "')");
+            boolean isInserted = DbConnect.insertDb("insert into Users(Name,Email,Password) values('" + name + "','" + email + "','" + pass + "')");
+            request.setAttribute("isInserted", isInserted);
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.forward(request, response);
             response.sendRedirect("register.jsp");
-            // < jsp:forward page="welcome.jsp" />
+
+         
         } catch (Exception ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
